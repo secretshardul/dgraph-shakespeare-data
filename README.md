@@ -12,7 +12,12 @@
     </Directory>
     ```
 3. Create database `leobinus_ossfdt` and import data from dump.
-4. Import dump.
+4. Create new user `dgraph_user` with with host `%`. This allows us to access database from command line.
+5. Get Dgraph schema and data using migration tool
+```sh
+dgraph migrate --config config.properties --output_schema schema.txt --output_data sql.rdf --host 192.168.64.2
+```
+
 
 # SQL to Dgraph conversion rules
 - SQL data is converted into N-Quad format with the format `<subject> <predicate> object .` where
@@ -61,3 +66,20 @@
         comments.PostId: [uid] .
         comments.UserId: [uid] .
         ```
+
+# Migration
+1.
+
+## Migration issues and fixes
+1. `blob` type column `Notes` in `Works` table: It's empty, drop it.
+2. `char` type column `ParagraphType` in `Paragraphs`: Change to text type
+3. `mediumInt` type in `TotalParagraphs` and `TotalWords` in `Works`: Change to int
+4. `mediumInt` type in `Occurences` in `WordForms`
+5. `mediumInt` type in `SpeechCount` in `Characters`
+6. `UserAccounts` and `UserAccessLevels` tables: Delete
+7. `MediaTypes` and `MediaObjects` tables
+8. `mediumInt` type in `WordFormID` in `WordForms`
+9. `Works_Searches` table: Delete
+10. `WordForms` table: No issue but unnecessary so delete
+
+Cleaned SQL data exported as `leobinus_ossfdt.sql`.
