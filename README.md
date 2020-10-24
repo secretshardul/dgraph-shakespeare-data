@@ -18,28 +18,22 @@
 dgraph migrate --config config.properties --output_schema schema.txt --output_data sql.rdf --host 192.168.64.2
 ```
 6. Feed data to Dgraph
+
+## Upload to Dgraph
+1. Use Docker to get unreleased Dgraph version which has Live Loader support for Slash.
+2. Path to schema and RDF files has to be absolute.
+3. Alter URL: add `.grpc` to domain, append port `443` and remove `https://`. Eg. `my-endpoint.grpc.ap-south-1.aws.cloud.dgraph.io:443`.
+4. Change Slash mode to flexible.
 ```sh
+# local ingestion
 dgraph live -z localhost:5080 -a localhost:9080 --files sql.rdf --format=rdf --schema schema.txt
-```
 
-## Upload to slash
-1. Feed schema
-2. Feed JSON using live loader to GRPC endpoint
-```
-_:Works.12night <Works.Title> "Twelfth Night" .
-_:Works.hamlet <Works.Title> "Hamlet" .
-```
-
-```sh
-docker run -it --rm -v /path/to/g01.json.gz:/tmp/g01.json.gz dgraph/dgraph:v20.07-slash \
-  dgraph live --slash_grpc_endpoint=<grpc-endpoint>:443 -f /tmp/g01.json.gz -t <api-token>
-
-# Add .grpc to domain and remove https://
+# On Slash
 docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/:/tmp/ dgraph/dgraph:v20.07-slash \
-  dgraph live --slash_grpc_endpoint=xenophobic-anger.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf  --schema /tmp/schema.txt -t <api-key>
+  dgraph live --slash_grpc_endpoint=my-endpoint.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf  --schema /tmp/schema.txt -t <api-key>
 ```
 
-## How to feed into Slash?
+## Admin endpoints
 1. Upload rdf data to `/mutate` endpoint
 ```sh
 curl -H "Content-Type: application/rdf" -H "x-auth-token: <api-key>" -X POST "<graphql-endpoint>/mutate?commitNow=true" -d $'
@@ -112,9 +106,6 @@ mutation($sch: String!) {
         comments.UserId: [uid] .
         ```
 
-# Migration
-1.
-
 ## Migration issues and fixes
 1. `blob` type column `Notes` in `Works` table: It's empty, drop it.
 2. `char` type column `ParagraphType` in `Paragraphs`: Change to text type
@@ -126,5 +117,5 @@ mutation($sch: String!) {
 8. `mediumInt` type in `WordFormID` in `WordForms`
 9. `Works_Searches` table: Delete
 10. `WordForms` table: No issue but unnecessary so delete
-
-Cleaned SQL data exported as `leobinus_ossfdt.sql`.
+11. Remove `engine=myISAM`. This engine does not support foreign keys, that's why connections were not being generated.
+12. Change `CharID` `Decius Brutus` to `Decius-Brutus`
