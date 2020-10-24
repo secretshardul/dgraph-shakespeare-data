@@ -26,11 +26,6 @@ Paragraphs.WorkID: string .
 Quotations.Location: string .
 Quotations.QuotationID: int .
 Quotations.QuotationText: string .
-WordForms.Occurences: int .
-WordForms.PhoneticText: string .
-WordForms.PlainText: string .
-WordForms.StemText: string .
-WordForms.WordFormID: int .
 Works.Date: int .
 Works.GenreType: string .
 Works.LongTitle: string .

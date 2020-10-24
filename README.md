@@ -17,7 +17,35 @@
 ```sh
 dgraph migrate --config config.properties --output_schema schema.txt --output_data sql.rdf --host 192.168.64.2
 ```
+6. Feed data to Dgraph
+```sh
+dgraph live -z localhost:5080 -a localhost:9080 --files sql.rdf --format=rdf --schema schema.txt
+```
 
+## How to feed into Slash?
+1. Upload rdf data to `/mutate` endpoint
+```sh
+curl -H "Content-Type: application/rdf" -H "x-auth-token: <api-key>" -X POST "<graphql-endpoint>/mutate?commitNow=true" -d $'
+{
+ set {
+    _:x <Person.name> "John" .
+    _:x <Person.age> "30" .
+    _:x <Person.country> "US" .
+ }
+}'
+```
+2. Upload schema: Make mutation to `/admin`. Pass `$sch` as parameter.
+```
+mutation($sch: String!) {
+  updateGQLSchema(input: { set: { schema: $sch}})
+  {
+    gqlSchema {
+      schema
+      generatedSchema
+    }
+  }
+}
+```
 
 # SQL to Dgraph conversion rules
 - SQL data is converted into N-Quad format with the format `<subject> <predicate> object .` where
