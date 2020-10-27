@@ -10,10 +10,10 @@ type Paragraph {
     wordCount: Int!
     chapterName: Int! # Todo connect with Chapter
     work: Work
-    character: PlayCharacter!
+    character: Character!
 }
 
-type PlayCharacter {
+type Character {
     charId: String! @id
     abbrev: String
     charName: String
