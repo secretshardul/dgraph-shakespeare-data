@@ -24,7 +24,7 @@ type PlayCharacter {
 }
 
 type Quotation {
-    quotationID: Int! @id
+    quotationId: String! @id
     quotationText: String!
     location: String!
 }
@@ -43,7 +43,7 @@ type Work {
 }
 
 type Chapter {
-    chapterId: Int! @id
+    chapterId: String! @id
     name: String!
     description: String!
     section: Int!

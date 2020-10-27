@@ -19,7 +19,7 @@ PlayCharacter.speechCount: int .
 PlayCharacter.workId: string .
 
 Quotation.location: string .
-Quotation.quotationID: int .
+Quotation.quotationId: int .
 Quotation.quotationText: string .
 
 Work.date: int .
