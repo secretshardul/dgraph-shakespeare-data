@@ -1,5 +1,6 @@
-studentId: string! @id .
+studentId: string @id .
 name: string .
+type: [uid] .
 
 type Student {
     studentId

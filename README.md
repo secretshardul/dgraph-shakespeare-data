@@ -210,3 +210,80 @@ MySQL said: Documentation
 
 #1452 - Cannot add or update a child row: a foreign key constraint fails (`shakespeare_clean`.`#sql-2a4_22c`, CONSTRAINT `#sql-2a4_22c_ibfk_1` FOREIGN KEY (`workId`) REFERENCES `Work` (`workId`))
 ```
+
+Find columns with issues
+```sql
+SELECT *
+FROM Character
+LEFT JOIN Work
+  ON Work.workId = Character.workId
+WHERE Work.workId IS NULL
+```
+
+### Issue
+Some characters appear in multiple plays. Eg. `workId` field for `antony` holds `uliuscaesar,antonycleo`. Don't connect the tables for now.
+
+# Add `<dgraph.type>` to RDF
+1. Add column `dgraph` to every table with
+```sql
+ALTER TABLE Chapter
+ADD dgraph VARCHAR(20) NOT NULL DEFAULT("Chapter");
+
+ALTER TABLE `Character`
+ADD dgraph VARCHAR(20) NOT NULL DEFAULT("Character");
+
+ALTER TABLE Genre
+ADD dgraph VARCHAR(20) NOT NULL DEFAULT("Genre");
+
+ALTER TABLE Paragraph
+ADD dgraph VARCHAR(20) NOT NULL DEFAULT("Paragraph");
+
+ALTER TABLE Quotation
+ADD dgraph VARCHAR(20) NOT NULL DEFAULT("Quotation");
+
+ALTER TABLE Work
+ADD dgraph VARCHAR(20) NOT NULL DEFAULT("Work");
+```
+2. Generate RDF file
+3. Replace `Character.dgraph` with `dgraph.type`
+
+
+# Push connected data from Ratel
+**Schema**: Add in slash
+```graphql
+type Genre {
+    genreName: String! @id
+    genreType: String!
+    work: Work @hasInverse(field: genre)
+}
+
+type Work {
+    workId: String! @id
+    title: String!
+    genre: Genre
+}
+```
+
+**Data**
+```
+{
+  set{
+    _:Work.1 <Work.workId> "1" .
+    _:Work.1 <Work.title> "Hamlet" .
+    _:Work.1 <Work.genre> _:Genre.1 .
+    _:Work.1 <dgraph.type> "Work" .
+    _:Genre.1 <Genre.genreName> "t" .
+    _:Genre.1 <Genre.genreType> "Tragedy" .
+    _:Genre.1 <dgraph.type> "Genre" .
+  }
+}
+```
+
+# Migration tool issues (blog post)
+1. `MyIsam` engine: No foreign keys
+2. Camel case names
+3. Types have to be added separately in slash
+4. `<dgraph.type>` predicate must be added to RDF data.
+5. Grpc endpoint not obvious
+6. Need docker: Unreleased slash live load feature
+7. Unsupported types like Blob, mediumInt cause migration tool to fail

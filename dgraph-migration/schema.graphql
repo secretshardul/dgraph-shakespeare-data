@@ -1,0 +1,25 @@
+type Paragraph {
+    paragraphId: String @id
+    charCount: Int
+    paragraphNum: Int
+    paragraphType: String
+    phoneticText: String
+    plainText: String
+    section: Int
+    stemText: Int
+    wordCount: Int
+    work: Work
+    character: PlayCharacter
+}
+
+type Genre {
+    genreName: String! @id
+    genreType: String!
+    work: Genre @hasInverse(field: genre)
+}
+
+type Work {
+    workId: String! @id
+    title: String!
+    genre: Genre
+}
