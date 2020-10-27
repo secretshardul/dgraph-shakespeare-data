@@ -9,18 +9,18 @@ type Paragraph {
     stemText: Int!
     wordCount: Int!
     chapterName: Int! # Todo connect with Chapter
-    work: Work
+    work: Work!
     character: Character!
 }
 
 type Character {
     charId: String! @id
-    abbrev: String
-    charName: String
-    description: String
-    speechCount: Int
+    abbrev: String!
+    charName: String!
+    description: String!
+    speechCount: Int!
     workIds: String! # Todo connect with Work, some fields have multiple workIds
-    paragraphs: [Paragraph] @hasInverse(field: character)
+    paragraphs: [Paragraph!]! @hasInverse(field: character)
 }
 
 type Quotation {
@@ -39,6 +39,7 @@ type Work {
     totalWords: Int!
     date: Int!
     genre: Genre!
+    paragraphs: [Paragraph!]! @hasInverse(field: work)
     chapters: [Chapter!]! @hasInverse(field: work)
 }
 
