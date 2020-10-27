@@ -1,25 +1,58 @@
 type Paragraph {
-    paragraphId: String @id
-    charCount: Int
-    paragraphNum: Int
-    paragraphType: String
-    phoneticText: String
-    plainText: String
-    section: Int
-    stemText: Int
-    wordCount: Int
+    paragraphId: String! @id
+    charCount: Int!
+    paragraphNum: Int!
+    paragraphType: String!
+    phoneticText: String!
+    plainText: String!
+    section: Int!
+    stemText: Int!
+    wordCount: Int!
+    chapterName: Int! # Todo connect with Chapter
     work: Work
-    character: PlayCharacter
+    character: PlayCharacter!
 }
 
-type Genre {
-    genreName: String! @id
-    genreType: String!
-    work: Genre @hasInverse(field: genre)
+type PlayCharacter {
+    charId: String! @id
+    abbrev: String
+    charName: String
+    description: String
+    speechCount: Int
+    workName: String! # Todo connect with Work, some fields have multiple workIds
+    paragraphs: [Paragraph] @hasInverse(field: character)
+}
+
+type Quotation {
+    quotationID: Int! @id
+    quotationText: String!
+    location: String!
 }
 
 type Work {
     workId: String! @id
+    longTitle: String!
+    shortTitle: String!
+    source: String!
     title: String!
-    genre: Genre
+    totalParagraphs: Int!
+    totalWords: Int!
+    date: Int!
+    genre: Genre!
+    chapters: [Chapter!]! @hasInverse(field: work)
 }
+
+type Chapter {
+    chapterId: Int! @id
+    name: String!
+    description: String!
+    section: Int!
+    work: Work!
+}
+
+type Genre {
+    genreType: String! @id
+    genreName: String!
+    work: Genre! @hasInverse(field: genre)
+}
+

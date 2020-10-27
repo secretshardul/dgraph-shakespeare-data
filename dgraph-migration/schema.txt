@@ -1,6 +1,5 @@
 Paragraph.chapterName: int .
 Paragraph.charCount: int .
-Paragraph.dgraph: string .
 Paragraph.paragraphID: int .
 Paragraph.paragraphNum: int .
 Paragraph.paragraphType: string .
@@ -9,22 +8,21 @@ Paragraph.plainText: string .
 Paragraph.section: int .
 Paragraph.stemText: string .
 Paragraph.wordCount: int .
-Paragraph.workId: [uid] .
-Paragraph.charId: [uid] .
+Paragraph.work: [uid] .
+Paragraph.playCharacter: [uid] .
 
 PlayCharacter.abbrev: string .
 PlayCharacter.charId: string .
 PlayCharacter.charName: string .
 PlayCharacter.description: string .
-PlayCharacter.dgraph: string .
 PlayCharacter.speechCount: int .
 PlayCharacter.workId: string .
-Quotation.dgraph: string .
+
 Quotation.location: string .
 Quotation.quotationID: int .
 Quotation.quotationText: string .
+
 Work.date: int .
-Work.dgraph: string .
 Work.longTitle: string .
 Work.shortTitle: string .
 Work.source: string .
@@ -32,13 +30,13 @@ Work.title: string .
 Work.totalParagraphs: int .
 Work.totalWords: int .
 Work.workId: string .
-Work.genreType: [uid] .
+Work.genre: [uid] .
+
 Chapter.chapterId: int .
 Chapter.description: string .
-Chapter.dgraph: string .
 Chapter.name: int .
 Chapter.section: int .
-Chapter.workId: [uid] .
-Genre.dgraph: string .
+Chapter.work: [uid] .
+
 Genre.genreName: string .
 Genre.genreType: string .
