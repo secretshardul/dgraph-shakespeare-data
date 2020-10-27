@@ -287,3 +287,18 @@ type Work {
 5. Grpc endpoint not obvious
 6. Need docker: Unreleased slash live load feature
 7. Unsupported types like Blob, mediumInt cause migration tool to fail
+
+# Search functionality
+1. Add decorator `@search(by: [fulltext])` to field. Full text search allows `alloftext` and `anyoftext` queries
+```graphql
+type Post {
+    title: String @search(by: [fulltext])
+}
+```
+
+2. Query
+```graphql
+query {
+    queryPost(filter: { title: { `alloftext: "fantastic GraphQL tutorials"` } } ) { ... }
+}
+```

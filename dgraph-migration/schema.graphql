@@ -4,7 +4,7 @@ type Paragraph {
     paragraphNum: Int!
     paragraphType: String!
     phoneticText: String!
-    plainText: String!
+    plainText: String! @search(by: [fulltext])
     section: Int!
     stemText: Int!
     wordCount: Int!
