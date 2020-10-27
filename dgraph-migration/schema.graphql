@@ -19,7 +19,7 @@ type Character {
     charName: String
     description: String
     speechCount: Int
-    workName: String! # Todo connect with Work, some fields have multiple workIds
+    workIds: String! # Todo connect with Work, some fields have multiple workIds
     paragraphs: [Paragraph] @hasInverse(field: character)
 }
 
