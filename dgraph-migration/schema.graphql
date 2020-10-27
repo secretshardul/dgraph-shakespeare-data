@@ -54,6 +54,6 @@ type Chapter {
 type Genre {
     genreType: String! @id
     genreName: String!
-    work: Genre! @hasInverse(field: genre)
+    work: Work! @hasInverse(field: genre)
 }
 
