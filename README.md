@@ -34,6 +34,13 @@ docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migr
 
 docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/live-loader-schema-test:/tmp/ dgraph/dgraph:v20.07-slash \
   dgraph live --slash_grpc_endpoint=fluent-breath.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t <API-KEY>
+
+
+docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migration:/tmp/ dgraph/dgraph:v20.07-slash \
+  dgraph live --slash_grpc_endpoint=full-request.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t iJI5Cgtv/ArM1ATFWaMqK46gutvJuSrkkzYqGMan1+A=
+
+docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migration:/tmp/ dgraph/dgraph:v20.07-slash \
+  dgraph live --slash_grpc_endpoint=decorous-way.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t 991EsD/h9WVL3sg2OJl5DhyolbKGiT68s6eahyfW5xg=
 ```
 
 ## Admin endpoints
@@ -61,6 +68,21 @@ mutation($sch: String!) {
 }
 ```
 
+3. Delete data
+```sh
+curl 'https://<your-backend>/admin/slash' \
+  -H 'X-Auth-Token: <your-token>' \
+  -H 'Content-Type: application/graphql' \
+  --data-binary 'mutation { dropData(allData: true) { response { code message } } }'
+```
+
+4. Delete data and schema
+```sh
+curl 'https://<your-backend>/admin/slash' \
+  -H 'X-Auth-Token: <your-token>' \
+  -H 'Content-Type: application/graphql' \
+  --data-binary 'mutation { dropData(allDataAndSchema: true) { response { code message } } }'
+```
 # SQL to Dgraph conversion rules
 - SQL data is converted into N-Quad format with the format `<subject> <predicate> object .` where
     1. Subject is UID

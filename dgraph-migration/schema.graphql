@@ -1,59 +1,59 @@
 type Paragraph {
     paragraphId: String! @id
-    charCount: Int!
-    paragraphNum: Int!
-    paragraphType: String!
-    phoneticText: String!
-    plainText: String! @search(by: [fulltext])
-    section: Int!
-    stemText: String!
-    wordCount: Int!
-    chapterName: Int! # Todo connect with Chapter
-    work: Work!
-    character: Character!
+    charCount: Int
+    paragraphNum: Int
+    paragraphType: String
+    phoneticText: String
+    plainText: String @search(by: [fulltext])
+    section: Int
+    stemText: String
+    wordCount: Int
+    chapterName: Int # Todo connect with Chapter
+    work: Work
+    character: Character
 }
 
 type Character {
     charId: String! @id
-    abbrev: String!
-    charName: String!
-    description: String!
-    speechCount: Int!
-    workIds: String! # Todo connect with Work, some fields have multiple workIds
-    paragraphs: [Paragraph!]! @hasInverse(field: character)
+    abbrev: String
+    charName: String
+    description: String
+    speechCount: Int
+    workIds: String # Todo connect with Work, some fields have multiple workIds
+    paragraphs: [Paragraph] @hasInverse(field: character)
 }
 
 type Quotation {
     quotationId: String! @id
     quotationText: String!
-    location: String!
+    location: String
 }
 
 type Work {
     workId: String! @id
-    longTitle: String!
-    shortTitle: String!
-    source: String!
-    title: String!
-    totalParagraphs: Int!
-    totalWords: Int!
-    date: Int!
-    genre: Genre!
-    paragraphs: [Paragraph!]! @hasInverse(field: work)
-    chapters: [Chapter!]! @hasInverse(field: work)
+    longTitle: String
+    shortTitle: String
+    source: String
+    title: String
+    totalParagraphs: Int
+    totalWords: Int
+    date: Int
+    genre: Genre
+    paragraphs: [Paragraph] @hasInverse(field: work)
+    chapters: [Chapter] @hasInverse(field: work)
 }
 
 type Chapter {
     chapterId: String! @id
-    name: String!
-    description: String!
-    section: Int!
-    work: Work!
+    name: String
+    description: String
+    section: Int
+    work: Work
 }
 
 type Genre {
     genreType: String! @id
     genreName: String!
-    work: Work! @hasInverse(field: genre)
+    works: [Work] @hasInverse(field: genre)
 }
 
