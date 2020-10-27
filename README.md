@@ -194,3 +194,19 @@ _:Student.2 <Student.studentId> "2" .
 _:Student.2 <Student.name> "John" .
 _:Student.2 <dgraph.type> "Student" .
 ```
+
+## Character to Work foreign key issue
+```
+Create  table `shakespeare_clean`.`Character` with foreign key constraint failed. There is no index in the referenced table where the referenced columns appear as the first columns near 'FOREIGN KEY (`workId`) REFERENCES `Work`(`workId`)
+```
+
+```
+SQL query
+
+ALTER TABLE `Character`
+  ADD FOREIGN KEY (`workId`) REFERENCES `Work` (`workId`)
+
+MySQL said: Documentation
+
+#1452 - Cannot add or update a child row: a foreign key constraint fails (`shakespeare_clean`.`#sql-2a4_22c`, CONSTRAINT `#sql-2a4_22c_ibfk_1` FOREIGN KEY (`workId`) REFERENCES `Work` (`workId`))
+```
