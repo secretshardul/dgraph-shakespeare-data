@@ -6,7 +6,7 @@ type Paragraph {
     phoneticText: String!
     plainText: String! @search(by: [fulltext])
     section: Int!
-    stemText: Int!
+    stemText: String!
     wordCount: Int!
     chapterName: Int! # Todo connect with Chapter
     work: Work!
