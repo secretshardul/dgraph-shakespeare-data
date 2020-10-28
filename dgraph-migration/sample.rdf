@@ -1,0 +1,14 @@
+_:Work.allswell <dgraph.type> "Work" .
+_:Work.allswell <Work.title> "All's Well That Ends Well" .
+_:Work.allswell <Work.workId> "allswell" .
+
+_:Work.asyoulikeit <dgraph.type> "Work" .
+_:Work.asyoulikeit <Work.title> "As You Like It" .
+_:Work.asyoulikeit <Work.workId> "asyoulikeit" .
+
+_:Genre.c <dgraph.type> "Genre" .
+_:Genre.c <Genre.genreName> "Comedy" .
+_:Genre.c <Genre.genreType> "c" .
+
+_:Work.allswell <Work.genre> _:Genre.c .
+_:Work.asyoulikeit <Work.genre> _:Genre.c .

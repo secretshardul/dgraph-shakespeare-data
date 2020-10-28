@@ -1,0 +1,11 @@
+type Work {
+    workId: String! @id
+    title: String
+    genre: Genre
+}
+
+type Genre {
+    genreType: String! @id
+    genreName: String!
+    works: [Work] @hasInverse(field: genre)
+}

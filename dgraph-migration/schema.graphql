@@ -38,7 +38,7 @@ type Work {
     totalParagraphs: Int
     totalWords: Int
     date: Int
-    genre: Genre
+    genre: Genre @hasInverse(field: works) # extra field
     paragraphs: [Paragraph] @hasInverse(field: work)
     chapters: [Chapter] @hasInverse(field: work)
 }
@@ -56,4 +56,3 @@ type Genre {
     genreName: String!
     works: [Work] @hasInverse(field: genre)
 }
-
