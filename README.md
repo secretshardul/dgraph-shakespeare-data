@@ -35,7 +35,6 @@ docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migr
 docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/live-loader-schema-test:/tmp/ dgraph/dgraph:v20.07-slash \
   dgraph live --slash_grpc_endpoint=fluent-breath.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t <API-KEY>
 
-
 docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migration:/tmp/ dgraph/dgraph:v20.07-slash \
   dgraph live --slash_grpc_endpoint=full-request.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t iJI5Cgtv/ArM1ATFWaMqK46gutvJuSrkkzYqGMan1+A=
 
@@ -207,6 +206,7 @@ type Student {
     name: String
 }
 ```
+
 2. Add `<dgraph.type>` predicate to `sql.rdf`. Eg.
 ```rdf
 _:Student.1 <Student.studentId> "1" .
@@ -276,7 +276,7 @@ ADD dgraph VARCHAR(20) NOT NULL DEFAULT("Work");
 type Genre {
     genreName: String! @id
     genreType: String!
-    work: Work @hasInverse(field: genre)
+    works: [Work] @hasInverse(field: genre)
 }
 
 type Work {
@@ -286,20 +286,53 @@ type Work {
 }
 ```
 
+**Generated DQL schema**
+```rdf
+<Genre.genreName>: string @index(hash) @upsert .
+<Genre.genreType>: string .
+<Genre.works>: [uid] .
+<Work.genre>: uid .
+<Work.title>: string .
+<Work.workId>: string @index(hash) @upsert .
+<dgraph.cors>: [string] @index(exact) @upsert .
+<dgraph.graphql.schema>: string .
+<dgraph.graphql.xid>: string @index(exact) @upsert .
+type <Genre> {
+	Genre.genreName
+	Genre.genreType
+	Genre.works
+}
+type <Work> {
+	Work.workId
+	Work.title
+	Work.genre
+}
+type <dgraph.graphql> {
+	dgraph.graphql.schema
+	dgraph.graphql.xid
+}
+```
+
 **Data**
 ```
 {
   set{
     _:Work.1 <Work.workId> "1" .
     _:Work.1 <Work.title> "Hamlet" .
-    _:Work.1 <Work.genre> _:Genre.1 .
     _:Work.1 <dgraph.type> "Work" .
     _:Genre.1 <Genre.genreName> "t" .
     _:Genre.1 <Genre.genreType> "Tragedy" .
     _:Genre.1 <dgraph.type> "Genre" .
+
+    _:Work.1 <Work.genre> _:Genre.1 .
+    _:Genre.1 <Genre.work> _:Work.1 .
   }
 }
 ```
+
+## Reverse connection not working
+1. Reverse connection must be explicitly set in RDF
+2. Arrays must be specified separately
 
 # Migration tool issues (blog post)
 1. `MyIsam` engine: No foreign keys
@@ -309,6 +342,8 @@ type Work {
 5. Grpc endpoint not obvious
 6. Need docker: Unreleased slash live load feature
 7. Unsupported types like Blob, mediumInt cause migration tool to fail
+8. ID can only be string type, not int
+9. Turn on flexible mode
 
 # Search functionality
 1. Add decorator `@search(by: [fulltext])` to field. Full text search allows `alloftext` and `anyoftext` queries
@@ -323,4 +358,11 @@ type Post {
 query {
     queryPost(filter: { title: { `alloftext: "fantastic GraphQL tutorials"` } } ) { ... }
 }
+
+query MyQuery {
+  queryParagraph(filter: { plainText: { `anyoftext: "fantastic GraphQL tutorials"` } } ) {
+
+  }
+}
+
 ```
