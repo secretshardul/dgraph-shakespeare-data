@@ -19,7 +19,7 @@ type Character {
     charName: String
     description: String
     speechCount: Int
-    workIds: String # Todo connect with Work, some fields have multiple workIds
+    works: [Work]
     paragraphs: [Paragraph] @hasInverse(field: character)
 }
 
@@ -41,6 +41,7 @@ type Work {
     genre: Genre @hasInverse(field: works) # extra field
     paragraphs: [Paragraph] @hasInverse(field: work)
     chapters: [Chapter] @hasInverse(field: work)
+    characters: [Character] @hasInverse(field: works)
 }
 
 type Chapter {
