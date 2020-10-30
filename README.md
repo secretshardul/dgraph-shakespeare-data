@@ -39,7 +39,7 @@ docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migr
   dgraph live --slash_grpc_endpoint=full-request.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t iJI5Cgtv/ArM1ATFWaMqK46gutvJuSrkkzYqGMan1+A=
 
 docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migration:/tmp/ dgraph/dgraph:v20.07-slash \
-  dgraph live --slash_grpc_endpoint=decorous-way.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t 991EsD/h9WVL3sg2OJl5DhyolbKGiT68s6eahyfW5xg=
+  dgraph live --slash_grpc_endpoint=khaki-yam.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t qQU11ej6CJVYzMzEaa3gBeRhC5GY6JqawodQwwX6xyI=
 ```
 
 ## Admin endpoints
@@ -366,3 +366,15 @@ query MyQuery {
 }
 
 ```
+
+# Regex commands
+1. Connect characters to works: replace `<Character.works> "antonycleo" .` with `<Character.works> _:Work.antonycleo .`
+
+    Find
+    ```
+    <Character.works> "(.*?)"
+    ```
+    Replace with
+    ```
+    <Character.works> _:Work.$1
+    ```
