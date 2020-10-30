@@ -16,7 +16,7 @@ type Paragraph {
 type Character {
     charId: String! @id
     abbrev: String
-    charName: String
+    charName: String @search(by: [term])
     description: String
     speechCount: Int
     works: [Work]
@@ -54,6 +54,6 @@ type Chapter {
 
 type Genre {
     genreType: String! @id
-    genreName: String!
+    genreName: String! @search(by: [fulltext])
     works: [Work] @hasInverse(field: genre)
 }
