@@ -368,7 +368,8 @@ query MyQuery {
 ```
 
 # Regex commands
-1. Connect characters to works: replace `<Character.works> "antonycleo" .` with `<Character.works> _:Work.antonycleo .`
+## Connect characters to works
+replace `<Character.works> "antonycleo" .` with `<Character.works> _:Work.antonycleo .`
 
     Find
     ```
@@ -379,7 +380,9 @@ query MyQuery {
     <Character.works> _:Work.$1
     ```
 
-2. Reverse connections: For `_:Paragraph.859864 <Paragraph.character> _:Character.BERTRAM .` add `_:Character.BERTRAM <Character.paragraphs> _:Paragraph.859864 .` below it.
+## Reverse connections
+### Character to paragraphs
+For `_:Paragraph.859864 <Paragraph.character> _:Character.BERTRAM .` add `_:Character.BERTRAM <Character.paragraphs> _:Paragraph.859864 .` below it.
 
 Find
 ```
@@ -390,4 +393,52 @@ Replace
 ```
 $1 <Paragraph.character> $2 .
 $2 <Character.paragraphs> $1 .
+```
+
+### Work to pragraphs
+Find
+```
+(.*?) <Paragraph.work> (.*?) .
+```
+
+Replace
+```
+$1 <Paragraph.work> $2 .
+$2 <Work.paragraphs> $1 .
+```
+
+### Work to chapters
+Find
+```
+(.*?) <Chapter.work> (.*?) .
+```
+
+Replace
+```
+$1 <Chapter.work> $2 .
+$2 <Work.chapters> $1 .
+```
+
+### Work to characters
+Find
+```
+(.*?) <Character.works> (.*?) .
+```
+
+Replace
+```
+$1 <Character.works> $2 .
+$2 <Work.characters> $1 .
+```
+
+### Genre to works
+Find
+```
+(.*?) <Work.genre> (.*?) .
+```
+
+Replace
+```
+$1 <Work.genre> $2 .
+$2 <Genre.works> $1 .
 ```
