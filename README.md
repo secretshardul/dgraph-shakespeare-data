@@ -30,16 +30,7 @@ dgraph live -z localhost:5080 -a localhost:9080 --files sql.rdf --format=rdf --s
 
 # On Slash
 docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migration:/tmp/ dgraph/dgraph:v20.07-slash \
-  dgraph live --slash_grpc_endpoint=rural-money.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf  --schema /tmp/schema.txt -t <API-KEY>
-
-docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/live-loader-schema-test:/tmp/ dgraph/dgraph:v20.07-slash \
-  dgraph live --slash_grpc_endpoint=fluent-breath.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t <API-KEY>
-
-docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migration:/tmp/ dgraph/dgraph:v20.07-slash \
-  dgraph live --slash_grpc_endpoint=full-request.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t iJI5Cgtv/ArM1ATFWaMqK46gutvJuSrkkzYqGMan1+A=
-
-docker run -it --rm -v /Users/hp/Documents/dgraph-hackathon/SQL-dump/dgraph-migration:/tmp/ dgraph/dgraph:v20.07-slash \
-  dgraph live --slash_grpc_endpoint=khaki-yam.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf -t qQU11ej6CJVYzMzEaa3gBeRhC5GY6JqawodQwwX6xyI=
+  dgraph live --slash_grpc_endpoint=endpoint.grpc.ap-south-1.aws.cloud.dgraph.io:443 -f /tmp/sql.rdf  --schema /tmp/schema.txt -t <API-KEY>
 ```
 
 ## Admin endpoints
@@ -395,7 +386,7 @@ $1 <Paragraph.character> $2 .
 $2 <Character.paragraphs> $1 .
 ```
 
-### Work to pragraphs
+### Work to paragraphs
 Find
 ```
 (.*?) <Paragraph.work> (.*?) .
@@ -441,4 +432,16 @@ Replace
 ```
 $1 <Work.genre> $2 .
 $2 <Genre.works> $1 .
+```
+
+## Add `dgraph.type` for primary key
+Find
+```
+(.*?) <Character.charId> (.*?) .
+```
+
+Replace
+```
+$1 <Character.charId> $2 .
+$1 <dgraph.type> "Character" .
 ```
