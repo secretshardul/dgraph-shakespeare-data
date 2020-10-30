@@ -1,0 +1,6 @@
+_:Paragraph.859864 <Paragraph.character> _:Character.BERTRAM .
+_:Character.BERTRAM <Character.paragraphs> _:Paragraph.859864 .
+_:Paragraph.859865 <Paragraph.character> _:Character.LAFEU .
+_:Character.LAFEU <Character.paragraphs> _:Paragraph.859865 .
+_:Paragraph.859870 <Paragraph.character> _:Character.Countess-aw .
+_:Character.Countess-aw <Character.paragraphs> _:Paragraph.859870 .

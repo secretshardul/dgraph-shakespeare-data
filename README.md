@@ -378,3 +378,16 @@ query MyQuery {
     ```
     <Character.works> _:Work.$1
     ```
+
+2. Reverse connections: For `_:Paragraph.859864 <Paragraph.character> _:Character.BERTRAM .` add `_:Character.BERTRAM <Character.paragraphs> _:Paragraph.859864 .` below it.
+
+Find
+```
+(.*?) <Paragraph.character> (.*?) .
+```
+
+Replace
+```
+$1 <Paragraph.character> $2 .
+$2 <Character.paragraphs> $1 .
+```
