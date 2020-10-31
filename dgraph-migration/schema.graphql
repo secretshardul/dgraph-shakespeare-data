@@ -1,4 +1,8 @@
-type Paragraph {
+type Paragraph @auth(
+    add: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    update: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    delete: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+) {
     paragraphId: String! @id
     charCount: Int
     paragraphNum: Int
@@ -13,7 +17,11 @@ type Paragraph {
     character: Character
 }
 
-type Character {
+type Character @auth(
+    add: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    update: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    delete: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+){
     charId: String! @id
     abbrev: String
     charName: String @search(by: [term])
@@ -23,13 +31,21 @@ type Character {
     paragraphs: [Paragraph] @hasInverse(field: character)
 }
 
-type Quotation {
+type Quotation @auth(
+    add: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    update: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    delete: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+){
     quotationId: String! @id
     quotationText: String!
     location: String
 }
 
-type Work {
+type Work @auth(
+    add: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    update: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    delete: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+) {
     workId: String! @id
     longTitle: String
     shortTitle: String
@@ -44,7 +60,11 @@ type Work {
     characters: [Character] @hasInverse(field: works)
 }
 
-type Chapter {
+type Chapter @auth(
+    add: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    update: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    delete: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+){
     chapterId: String! @id
     name: String
     description: String
@@ -52,8 +72,15 @@ type Chapter {
     work: Work
 }
 
-type Genre {
+type Genre @auth(
+    add: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    update: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+    delete: { rule:  "{$ROLE: { eq: \"ADMIN\" } }" },
+){
     genreType: String! @id
     genreName: String! @search(by: [fulltext])
     works: [Work] @hasInverse(field: genre)
 }
+
+# Todo generate Admin JWT
+# Dgraph.Authorization {"VerificationKey":"secretkey","Header":"X-My-App-Auth","Namespace":"https://my.app.io/jwt/claims","Algo":"HS256"}
