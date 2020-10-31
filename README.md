@@ -30,6 +30,10 @@ These steps are for documentatary purposes. The final `schema.graphql` and `sql.
 4. By looking at the database, design a `schema.graphql` file as per needs. Add types, authorization, inverse relations and search as necessary.
 5. Some regular expression transformations were performed on the generated `sql.rdf` file to support all access patterns- adding `<dgraph.type>`, reverse relations etc. For complete steps, look at this [blog post](TODO).
 
+## Future work
+1. In the SQL data, Paragraph table does not have a foreign key for Chapter table. `Paragraph` and `Chapter` graphQL types are yet to be linked.
+2. `Quotes` table was separate and not linked to `Works`, `Character` or any other table. The graphQL types are not linked yet.
+
 ## Credits
 1. [Open source Shakespeare by George Mason University](https://www.opensourceshakespeare.org/downloads/): For making their SQL database open source.
 2. [Terence Eden](https://github.com/edent/Open-Source-Shakespeare) and [Richard Morrison](): For improvements in the original SQL dump.
