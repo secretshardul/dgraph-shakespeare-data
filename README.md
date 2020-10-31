@@ -3,6 +3,10 @@
 
 This repository holds the GraphQL schema and RDF file needed to setup a Shakespeare database on Slash. For a sample app built with this data, look at my [Complete Shakespeare Alexa skill on Github](https://github.com/secretshardul/complete-shakespeare).
 
+## Architecture
+![Architecture](https://lucid.app/publicSegments/view/22f57178-d91d-42ed-9755-eb46218710c5/image.png)
+
+## Visualized schema
 ![Schema visualized](https://lucid.app/publicSegments/view/e6bbf02e-864b-4ce4-85f2-5dc13a843c5a/image.png)
 
 ## Steps to push data on Slash
