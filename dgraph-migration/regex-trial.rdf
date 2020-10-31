@@ -1,6 +1,0 @@
-_:Character.1apparition-mac <Character.charId> "1apparition-mac" .
-_:Character.1apparition-mac <dgraph.type> "Character" .
-
-
-_:Character.1citizen <Character.charId> "1citizen" .
-_:Character.1citizen <dgraph.type> "Character" .

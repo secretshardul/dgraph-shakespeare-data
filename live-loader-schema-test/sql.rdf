@@ -1,3 +1,0 @@
-_:Student.3 <Student.studentId> "3" .
-_:Student.3 <Student.name> "Mike" .
-_:Student.3 <dgraph.type> "Student" .
