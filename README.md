@@ -1,7 +1,11 @@
 # Complete works of Shakespeare: GraphQL schema and DGraph RDF dump
 ![](https://media-fastly.hackerearth.com/media/hackathon/slash-sprint/images/7af8fd52f7-cover_image_1.png)
 
-This repository holds the GraphQL schema and RDF file needed to setup a Shakespeare database on Slash. For a sample app built with this data, look at my [Complete Shakespeare Alexa skill on Github](https://github.com/secretshardul/complete-shakespeare).
+This repository holds the GraphQL schema and RDF file needed to setup a Shakespeare database on Slash.
+
+This project is split across 2 repositories:
+1. [**dgraph-shakespeare-data**](https://github.com/secretshardul/dgraph-shakespeare-data) (current repository): Contains the RDF file and GraphQL schema needed to setup DGraph.
+2. [**dgraph-shakespeare-alexa**](https://github.com/secretshardul/dgraph-shakespeare-alexa): Contains code for Alexa skill for Shakespeare which consumes data from DGraph.
 
 ## Architecture
 ![Architecture](https://lucid.app/publicSegments/view/22f57178-d91d-42ed-9755-eb46218710c5/image.png)
