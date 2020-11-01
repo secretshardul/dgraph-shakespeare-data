@@ -36,7 +36,7 @@ These steps are for documentatary purposes. The final `schema.graphql` and `sql.
     ```
 
 4. By looking at the database, design a `schema.graphql` file as per needs. Add types, authorization, inverse relations and search as necessary.
-5. Some regular expression transformations were performed on the generated `sql.rdf` file to support all access patterns- adding `<dgraph.type>`, reverse relations etc. For complete steps, look at this [blog post](TODO).
+5. Some regular expression transformations were performed on the generated `sql.rdf` file to support all access patterns- adding `<dgraph.type>`, reverse relations etc. For complete steps, look at my [blog post](https://discuss.dgraph.io/t/sql-migration-tool-shenanigans-and-solutions/11229).
 
 ## Future work
 1. In the SQL data, Paragraph table does not have a foreign key for Chapter table. `Paragraph` and `Chapter` graphQL types are yet to be linked.
