@@ -7,6 +7,9 @@ This project is split across 2 repositories:
 1. [**dgraph-shakespeare-data**](https://github.com/secretshardul/dgraph-shakespeare-data) (current repository): Contains the RDF file and GraphQL schema needed to setup DGraph.
 2. [**complete-shakespeare**](https://github.com/secretshardul/complete-shakespeare): Contains code for Alexa skill for Shakespeare which consumes data from DGraph.
 
+## Demo video
+[![Complete shakespeare demo](https://github.com/secretshardul/complete-shakespeare/raw/master/images/thumbnail-yt.png)](https://youtu.be/CpnAH6ymal8)
+
 ## Architecture
 ![Architecture](https://lucid.app/publicSegments/view/22f57178-d91d-42ed-9755-eb46218710c5/image.png)
 
